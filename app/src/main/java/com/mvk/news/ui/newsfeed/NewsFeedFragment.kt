@@ -2,17 +2,21 @@ package com.mvk.news.ui.newsfeed
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvk.news.BR
 import com.mvk.news.R
 import com.mvk.news.databinding.FragmentNewsFeedBinding
 import com.mvk.news.di.component.FragmentComponent
 import com.mvk.news.ui.base.BaseFragment
+import com.mvk.news.ui.newsfeed.adapter.NewsFeedAdapter
+import javax.inject.Inject
 
 class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel>() {
 
     companion object {
 
-        const val TAG = "HomeFragment"
+        const val TAG = "NewsFeedFragment"
 
         fun newInstance(): NewsFeedFragment {
             val args = Bundle()
@@ -20,8 +24,13 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
             fragment.arguments = args
             return fragment
         }
-
     }
+
+    @Inject
+    lateinit var linearLayoutManager: LinearLayoutManager
+
+    @Inject
+    lateinit var newsFeedAdapter: NewsFeedAdapter
 
     override fun provideDataBindingVariable(): Int = BR.homeVM
 
@@ -31,9 +40,23 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
         fragmentComponent.inject(this)
 
     override fun setupView(view: View) {
+        dataBinding.newsFeedRV.apply {
+            layoutManager = linearLayoutManager
+            adapter = newsFeedAdapter
+        }
     }
 
     override fun setupObservers() {
         super.setupObservers()
+
+        viewModel.loading.observe(this, {
+            dataBinding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
+        viewModel.posts.observe(this, {
+            it.data?.run {
+                newsFeedAdapter.appendData(this)
+            }
+        })
     }
 }

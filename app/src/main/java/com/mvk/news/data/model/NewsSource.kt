@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class NewsSource(
     @Expose
-    @SerializedName("status")
+    @SerializedName("id")
     var id: String?,
 
     @Expose

@@ -1,9 +1,11 @@
 package com.mvk.news.di.module
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvk.news.data.repository.NewsRepository
 import com.mvk.news.ui.base.BaseFragment
 import com.mvk.news.ui.newsfeed.NewsFeedViewModel
+import com.mvk.news.ui.newsfeed.adapter.NewsFeedAdapter
 import com.mvk.news.utils.ViewModelProviderFactory
 import com.mvk.news.utils.network.NetworkHelper
 import com.mvk.news.utils.rx.SchedulerProvider
@@ -14,6 +16,12 @@ import io.reactivex.processors.PublishProcessor
 
 @Module
 class FragmentModule(private val fragment: BaseFragment<*, *>) {
+
+    @Provides
+    fun provideLinearLayoutManager(): LinearLayoutManager = LinearLayoutManager(fragment.context)
+
+    @Provides
+    fun provideNewsFeedAdapter() = NewsFeedAdapter(fragment.lifecycle, ArrayList())
 
     @Provides
     fun provideNewsFeedViewModel(
@@ -28,6 +36,7 @@ class FragmentModule(private val fragment: BaseFragment<*, *>) {
                 compositeDisposable,
                 networkHelper,
                 newsRepository,
+                ArrayList(),
                 PublishProcessor.create()
             )
         }

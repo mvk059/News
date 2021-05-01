@@ -12,7 +12,7 @@ data class NewsHeadlinesResponse(
 
     @Expose
     @SerializedName("articles")
-    var articles: NewsArticles?,
+    var articles: List<NewsArticles>?,
 )
 
 

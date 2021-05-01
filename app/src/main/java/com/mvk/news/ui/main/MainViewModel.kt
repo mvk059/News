@@ -1,7 +1,9 @@
-package com.mvk.news.ui
+package com.mvk.news.ui.main
 
+import androidx.lifecycle.MutableLiveData
 import com.mvk.news.data.repository.NewsRepository
 import com.mvk.news.ui.base.BaseViewModel
+import com.mvk.news.utils.common.Event
 import com.mvk.news.utils.log.Logger
 import com.mvk.news.utils.network.NetworkHelper
 import com.mvk.news.utils.rx.SchedulerProvider
@@ -14,23 +16,14 @@ class MainViewModel(
     newsRepository: NewsRepository
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
 
-    init {
-        compositeDisposable.addAll(
-            newsRepository.doNewsHeadlinesCall(country = "us", category = "business", page = 1)
-                .subscribeOn(schedulerProvider.io())
-                .subscribe(
-                    {
-                        Logger.d("OKHTTP", it.articles?.title.toString())
-                    },
-                    {
-                        handleNetworkError(it)
-                    }
-                )
-        )
-    }
+    val homeNavigation = MutableLiveData<Event<Boolean>>()
 
     override fun onCreate() {
 
+    }
+
+    fun loadNewsFeed() {
+        homeNavigation.postValue(Event(true))
     }
 
 }
