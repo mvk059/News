@@ -5,6 +5,6 @@ import android.widget.Toast
 
 object Toaster {
     fun show(context: Context, text: CharSequence) {
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show()
     }
 }

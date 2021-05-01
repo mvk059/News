@@ -5,7 +5,7 @@ import android.content.Context
 import com.mvk.instagram.di.ApplicationContext
 import com.mvk.news.NewsApp
 import com.mvk.news.data.remote.NetworkService
-import com.mvk.news.data.repository.NetworkRepository
+import com.mvk.news.data.repository.NewsRepository
 import com.mvk.news.di.module.ApplicationModule
 import com.mvk.news.utils.network.NetworkHelper
 import com.mvk.news.utils.rx.SchedulerProvider
@@ -28,7 +28,7 @@ interface ApplicationComponent {
 
     fun getNetworkHelper(): NetworkHelper
 
-    fun getNetworkRepository(): NetworkRepository
+    fun getNetworkRepository(): NewsRepository
 
     fun getSchedulerProvider(): SchedulerProvider
 

@@ -7,5 +7,7 @@
     <string name="network_internal_error">Our systems got an error, please retry again</string>
     <string name="network_server_not_available">Our services are under maintenance, please retry after some time
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

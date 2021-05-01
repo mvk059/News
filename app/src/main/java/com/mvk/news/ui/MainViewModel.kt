@@ -1,6 +1,6 @@
 package com.mvk.news.ui
 
-import com.mvk.news.data.repository.NetworkRepository
+import com.mvk.news.data.repository.NewsRepository
 import com.mvk.news.ui.base.BaseViewModel
 import com.mvk.news.utils.log.Logger
 import com.mvk.news.utils.network.NetworkHelper
@@ -11,12 +11,12 @@ class MainViewModel(
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable,
     networkHelper: NetworkHelper,
-    networkRepository: NetworkRepository
+    newsRepository: NewsRepository
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
 
     init {
         compositeDisposable.addAll(
-            networkRepository.doNewsHeadlinesCall(country = "us", category = "business", page = 1)
+            newsRepository.doNewsHeadlinesCall(country = "us", category = "business", page = 1)
                 .subscribeOn(schedulerProvider.io())
                 .subscribe(
                     {

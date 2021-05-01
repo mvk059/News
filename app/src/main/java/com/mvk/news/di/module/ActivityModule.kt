@@ -1,7 +1,7 @@
 package com.mvk.news.di.module
 
 import androidx.lifecycle.ViewModelProvider
-import com.mvk.news.data.repository.NetworkRepository
+import com.mvk.news.data.repository.NewsRepository
 import com.mvk.news.ui.MainViewModel
 import com.mvk.news.ui.base.BaseActivity
 import com.mvk.news.utils.ViewModelProviderFactory
@@ -19,10 +19,10 @@ class ActivityModule(private val activity: BaseActivity<*, *>) {
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
         networkHelper: NetworkHelper,
-        networkRepository: NetworkRepository
+        newsRepository: NewsRepository
     ): MainViewModel {
         val viewModelFactory = ViewModelProviderFactory(MainViewModel::class) {
-            MainViewModel(schedulerProvider, compositeDisposable, networkHelper, networkRepository)
+            MainViewModel(schedulerProvider, compositeDisposable, networkHelper, newsRepository)
         }
         return ViewModelProvider(activity, viewModelFactory).get(MainViewModel::class.java)
     }
