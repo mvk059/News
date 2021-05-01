@@ -20,9 +20,16 @@ android {
     }
 
     buildTypes {
+        // Add this debug config to provide debug settings
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://newsapi.org/v2/\"")
+            buildConfigField("String", "API_KEY", "\"c68b16311765410abe5ef07171a6de70\"")
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", "\"https://newsapi.org/v2/\"")
+            buildConfigField("String", "API_KEY", "\"c68b16311765410abe5ef07171a6de70\"")
         }
     }
     compileOptions {
@@ -82,6 +89,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$network_adapter"
 
     // Reactive
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"

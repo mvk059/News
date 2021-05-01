@@ -1,7 +1,8 @@
-package com.mvk.news
+package com.mvk.news.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mvk.news.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

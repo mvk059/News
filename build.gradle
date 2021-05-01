@@ -70,6 +70,7 @@ ext {
     // Networking
     retrofit_version = '2.9.0'
     okhttp_version = '4.9.1'
+    network_adapter = '1.0.0'
 
     // Dagger
     dagger_version = '2.33'
