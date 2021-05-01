@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object Networking {
 
-    const val HEADER_API_KEY = "apiKey"
+    const val HEADER_API_KEY = "x-api-key"
 
     private const val NETWORK_CALL_TIMEOUT = 60
     internal lateinit var API_KEY: String

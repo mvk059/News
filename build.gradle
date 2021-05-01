@@ -75,4 +75,7 @@ ext {
     // Dagger
     dagger_version = '2.33'
 
+    // Logging
+    timber_version = '4.7.1'
+
 }

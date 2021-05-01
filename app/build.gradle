@@ -39,6 +39,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -94,6 +97,9 @@ dependencies {
     // Reactive
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+
+    // logger
+    implementation "com.jakewharton.timber:timber:$timber_version"
 
     // Unit test
     testImplementation "junit:junit:$junit_version"
