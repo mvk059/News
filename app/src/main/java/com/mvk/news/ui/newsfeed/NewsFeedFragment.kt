@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mvk.news.BR
 import com.mvk.news.R
 import com.mvk.news.databinding.FragmentNewsFeedBinding
@@ -43,6 +44,18 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
         dataBinding.newsFeedRV.apply {
             layoutManager = linearLayoutManager
             adapter = newsFeedAdapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    layoutManager?.run {
+                        if (this is LinearLayoutManager
+                                && itemCount > 0
+                                && itemCount == findLastVisibleItemPosition() + 1) {
+                            viewModel.onLoadMore()
+                        }
+                    }
+                }
+            })
         }
     }
 
