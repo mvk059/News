@@ -23,13 +23,13 @@ android {
         // Add this debug config to provide debug settings
         debug {
             buildConfigField("String", "BASE_URL", "\"https://newsapi.org/v2/\"")
-            buildConfigField("String", "API_KEY", "\"c68b16311765410abe5ef07171a6de70\"")
+            buildConfigField("String", "API_KEY", "\"dfffdd91939a4284a09ecb54130bb35f\"")
         }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "BASE_URL", "\"https://newsapi.org/v2/\"")
-            buildConfigField("String", "API_KEY", "\"c68b16311765410abe5ef07171a6de70\"")
+            buildConfigField("String", "API_KEY", "\"dfffdd91939a4284a09ecb54130bb35f\"")
         }
     }
     compileOptions {

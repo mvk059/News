@@ -8,4 +8,7 @@ object Constants {
     const val PAGE_SIZE = 10
     const val API_HEADLINES = "headlines"
     const val API_SEARCH = "search"
+    const val TAG_HOME_INDIA = "india"
+    const val TAG_HOME_US = "us"
+    const val HOME_PARAM_ARG = "home_arg"
 }

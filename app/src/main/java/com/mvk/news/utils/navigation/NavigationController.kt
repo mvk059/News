@@ -6,18 +6,17 @@ import androidx.fragment.app.FragmentManager
 import com.mvk.news.R
 import com.mvk.news.ui.home.HomeFragment
 import com.mvk.news.ui.newsfeed.NewsFeedFragment
-import com.mvk.news.utils.common.Constants
 import javax.inject.Inject
 
 class NavigationController @Inject constructor(var context: Context, var fragmentManager: FragmentManager) {
 
-    fun showHomeFragment(): Fragment {
+    fun showHomeFragment(tag: String): Fragment {
         val fragmentTransaction = fragmentManager.beginTransaction()
-        var fragment = fragmentManager.findFragmentByTag(HomeFragment.TAG) as HomeFragment?
 
+        var fragment = fragmentManager.findFragmentByTag(tag) as HomeFragment?
         if (fragment == null) {
-            fragment = HomeFragment.newInstance()
-            fragmentTransaction.add(R.id.homeContainerFragment, fragment, HomeFragment.TAG)
+            fragment = HomeFragment.newInstance(tag)
+            fragmentTransaction.replace(R.id.homeContainerFragment, fragment, tag)
         } else {
             fragmentTransaction.show(fragment)
         }
@@ -26,15 +25,17 @@ class NavigationController @Inject constructor(var context: Context, var fragmen
     }
 
     fun showNewsFeedFragment(
+        tag: String,
         category: String? = "",
         query: String? = ""
     ): Fragment {
         val fragmentTransaction = fragmentManager.beginTransaction()
-        var fragment = fragmentManager.findFragmentByTag(NewsFeedFragment.TAG) as NewsFeedFragment?
+
+        var fragment = fragmentManager.findFragmentByTag(tag) as NewsFeedFragment?
 
         if (fragment == null) {
             fragment = NewsFeedFragment.newInstance()
-            fragmentTransaction.add(R.id.newsFeedContainerFragment, fragment, NewsFeedFragment.TAG)
+            fragmentTransaction.replace(R.id.newsFeedContainerFragment, fragment, tag)
         } else {
             fragmentTransaction.show(fragment)
             if (!category.isNullOrEmpty())

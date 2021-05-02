@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/itemIndia"
+          android:title="@string/menu_india"
+          android:titleCondensed="@string/menu_india"
+          android:icon="@drawable/selector_india"
+          app:showAsAction="always"/>
+
+    <item android:id="@+id/itemUS"
+          android:title="@string/menu_us"
+          android:titleCondensed="@string/menu_us"
+          android:icon="@drawable/selector_us"
+          app:showAsAction="ifRoom"/>
+
+</menu>

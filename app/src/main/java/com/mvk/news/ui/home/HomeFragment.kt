@@ -10,22 +10,22 @@ import com.mvk.news.di.HorizontalRV
 import com.mvk.news.di.component.FragmentComponent
 import com.mvk.news.ui.base.BaseFragment
 import com.mvk.news.ui.home.adapter.NewsCategoryAdapter
+import com.mvk.news.utils.common.Constants
 import com.mvk.news.utils.navigation.NavigationController
-import com.mvk.news.utils.rx.RxSearch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     companion object {
         const val TAG = "HomeFragment"
+        var homeTagParam: String? = null
 
-        fun newInstance(): HomeFragment {
-            val args = Bundle()
-            val fragment = HomeFragment()
-            fragment.arguments = args
-            return fragment
-        }
+        fun newInstance(tag: String): HomeFragment =
+             HomeFragment().apply {
+                arguments = Bundle().apply {
+                    putString(Constants.HOME_PARAM_ARG, tag)
+                }
+            }
     }
 
     @Inject
@@ -46,6 +46,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         fragmentComponent.inject(this)
 
     override fun setupView(view: View) {
+        arguments?.let {
+            homeTagParam = it.getString(Constants.HOME_PARAM_ARG)
+        }
         viewModel.loadNewsFeed()
         setupSearchView()
         setupCategoryAdapter()
@@ -56,26 +59,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
         viewModel.homeNavigation.observe(this, {
             it.getIfNotHandled()?.run {
-                navigationController.showNewsFeedFragment()
+                navigationController.showNewsFeedFragment(tag = TAG + homeTagParam)
             }
         })
 
         viewModel.searchQuery.observe(this, {
             it.getIfNotHandled()?.run {
                 newsCategoryAdapter.clearSelection()
-                navigationController.showNewsFeedFragment(query = this)
+                navigationController.showNewsFeedFragment(tag = TAG + homeTagParam, query = this)
             }
         })
 
         viewModel.categoryList.observe(this, {
             it.data?.run {
+//                dataBinding.categorySearchView.setQuery("", false)
                 newsCategoryAdapter.appendData(this)
             }
         })
     }
 
     private fun setupSearchView() {
-        viewModel.handleSearch(dataBinding.categorySearchView)
+//        viewModel.handleSearch(dataBinding.categorySearchView)
     }
 
     private fun setupCategoryAdapter() {
@@ -84,5 +88,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             adapter = newsCategoryAdapter
         }
         viewModel.getNewsCategoryList()
+    }
+
+    fun clearCategorySelection() {
+        newsCategoryAdapter.clearSelection()
     }
 }

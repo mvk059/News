@@ -39,12 +39,18 @@ class NewsFeedViewModel(
                         return@concatMapSingle newsRepository
                             .doNewsHeadlinesCall(country = "us", category = category, page = pageId)
                             .subscribeOn(schedulerProvider.io())
-                            .doOnError { handleNetworkError(it) }
+                            .doOnError {
+                                loading.postValue(false)
+                                handleNetworkError(it)
+                            }
                     } else {
                         return@concatMapSingle newsRepository
                             .doSearchCall(searchQuery = searchQuery, page = pageId)
                             .subscribeOn(schedulerProvider.io())
-                            .doOnError { handleNetworkError(it) }
+                            .doOnError {
+                                loading.postValue(false)
+                                handleNetworkError(it)
+                            }
                     }
                 }
                 .subscribe(
@@ -55,6 +61,7 @@ class NewsFeedViewModel(
                         posts.postValue(Resource.success(it.articles))
                     },
                     {
+                        loading.postValue(false)
                         handleNetworkError(it)
                     }
                 )

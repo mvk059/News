@@ -6,6 +6,7 @@ import com.mvk.news.R
 import com.mvk.news.data.model.NewsCategory
 import com.mvk.news.di.component.ViewHolderComponent
 import com.mvk.news.ui.base.BaseItemViewHolder
+import com.mvk.news.ui.home.HomeFragment
 import com.mvk.news.utils.navigation.NavigationController
 import kotlinx.android.synthetic.main.item_view_news_category.view.*
 import javax.inject.Inject
@@ -33,6 +34,9 @@ class NewsCategoryItemViewHolder(parent: ViewGroup) :
     }
 
     fun refreshNewsFeed() {
-        navigationController.showNewsFeedFragment(viewModel.data.value?.category.toString())
+        navigationController.showNewsFeedFragment(
+            tag = HomeFragment.TAG + HomeFragment.homeTagParam,
+            category = viewModel.data.value?.category.toString()
+        )
     }
 }
