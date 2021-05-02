@@ -7,6 +7,7 @@ import com.mvk.news.BuildConfig
 import com.mvk.news.NewsApp
 import com.mvk.news.data.remote.NetworkService
 import com.mvk.news.data.remote.Networking
+import com.mvk.news.data.repository.NewsCategoryRepository
 import com.mvk.news.utils.network.NetworkHelper
 import com.mvk.news.utils.rx.RxSchedulerProvider
 import com.mvk.news.utils.rx.SchedulerProvider
@@ -44,4 +45,7 @@ class ApplicationModule(private val application: NewsApp) {
     @Singleton
     @Provides
     fun provideNetworkHelper(): NetworkHelper = NetworkHelper(application)
+
+    @Provides
+    fun provideNewsCategoryRepository(): NewsCategoryRepository = NewsCategoryRepository(application)
 }
