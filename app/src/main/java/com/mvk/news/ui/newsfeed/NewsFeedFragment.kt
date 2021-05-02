@@ -33,7 +33,7 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
     @Inject
     lateinit var newsFeedAdapter: NewsFeedAdapter
 
-    override fun provideDataBindingVariable(): Int = BR.homeVM
+    override fun provideDataBindingVariable(): Int = BR.newsVM
 
     override fun provideLayoutId(): Int = R.layout.fragment_news_feed
 

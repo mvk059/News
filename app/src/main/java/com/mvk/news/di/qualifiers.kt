@@ -1,4 +1,4 @@
-package com.mvk.instagram.di
+package com.mvk.news.di
 
 import javax.inject.Qualifier
 
@@ -12,4 +12,4 @@ annotation class ActivityContext
 
 @Qualifier
 @Retention(AnnotationRetention.SOURCE)
-annotation class TempDirectory
+annotation class HorizontalRV

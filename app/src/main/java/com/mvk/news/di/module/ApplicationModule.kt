@@ -2,7 +2,7 @@ package com.mvk.news.di.module
 
 import android.app.Application
 import android.content.Context
-import com.mvk.instagram.di.ApplicationContext
+import com.mvk.news.di.ApplicationContext
 import com.mvk.news.BuildConfig
 import com.mvk.news.NewsApp
 import com.mvk.news.data.remote.NetworkService

@@ -1,6 +1,6 @@
 package com.mvk.news.di.component
 
-import com.mvk.instagram.di.ActivityScope
+import com.mvk.news.di.ActivityScope
 import com.mvk.news.di.module.ActivityModule
 import com.mvk.news.ui.main.MainActivity
 import dagger.Component

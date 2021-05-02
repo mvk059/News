@@ -16,4 +16,12 @@ interface NetworkService {
         @Query("page") page: Int,
         @Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY // default value set when Networking create is called
     ): Single<NewsHeadlinesResponse>
+
+    @GET(Endpoints.EVERYTHING)
+    fun doSearchCall(
+        @Query("q") searchQuery: String,
+        @Query("pageSize") pageSize: Int,
+        @Query("page") page: Int,
+        @Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY // default value set when Networking create is called
+    ): Single<NewsHeadlinesResponse>
 }

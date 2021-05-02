@@ -1,4 +1,4 @@
-package com.mvk.news.ui.main.adapter
+package com.mvk.news.ui.home.adapter
 
 import android.view.View
 import android.view.ViewGroup

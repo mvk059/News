@@ -6,7 +6,7 @@ import com.mvk.news.data.repository.NewsCategoryRepository
 import com.mvk.news.data.repository.NewsRepository
 import com.mvk.news.ui.base.BaseActivity
 import com.mvk.news.ui.main.MainViewModel
-import com.mvk.news.ui.main.adapter.NewsCategoryAdapter
+import com.mvk.news.ui.home.adapter.NewsCategoryAdapter
 import com.mvk.news.utils.ViewModelProviderFactory
 import com.mvk.news.utils.navigation.NavigationController
 import com.mvk.news.utils.network.NetworkHelper
@@ -21,8 +21,8 @@ class ActivityModule(private val activity: BaseActivity<*, *>) {
     @Provides
     fun provideLinearLayoutManager(): LinearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
-    @Provides
-    fun provideNewsFeedAdapter() = NewsCategoryAdapter(activity.lifecycle, ArrayList())
+//    @Provides
+//    fun provideNewsFeedAdapter() = NewsCategoryAdapter(activity.lifecycle, ArrayList())
 
     @Provides
     fun provideNavigationController(): NavigationController =

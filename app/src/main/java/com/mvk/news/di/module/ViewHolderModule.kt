@@ -1,7 +1,8 @@
 package com.mvk.news.di.module
 
+import android.content.Context
 import androidx.lifecycle.LifecycleRegistry
-import com.mvk.instagram.di.ViewModelScope
+import com.mvk.news.di.ViewModelScope
 import com.mvk.news.ui.base.BaseActivity
 import com.mvk.news.ui.base.BaseItemViewHolder
 import dagger.Module
@@ -16,7 +17,7 @@ class ViewHolderModule(private val viewHolder: BaseItemViewHolder<*, *>) {
 
     @Provides
     @ViewModelScope
-    fun provideContext() = viewHolder.itemView.context
+    fun provideContext(): Context = viewHolder.itemView.context
 
     @Provides
     @ViewModelScope

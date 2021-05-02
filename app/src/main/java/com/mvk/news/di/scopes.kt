@@ -1,4 +1,4 @@
-package com.mvk.instagram.di
+package com.mvk.news.di
 
 import javax.inject.Scope
 

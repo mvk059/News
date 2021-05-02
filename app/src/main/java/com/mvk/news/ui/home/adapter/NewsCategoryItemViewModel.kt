@@ -1,4 +1,4 @@
-package com.mvk.news.ui.main.adapter
+package com.mvk.news.ui.home.adapter
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
