@@ -100,4 +100,9 @@ abstract class BaseAdapter<T : Any, VH : BaseItemViewHolder<T, out BaseItemViewM
         dataList.addAll(list)
         notifyDataSetChanged()
     }
+
+    fun clearList() {
+        dataList.clear()
+        notifyDataSetChanged()
+    }
 }

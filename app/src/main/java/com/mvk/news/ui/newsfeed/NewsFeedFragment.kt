@@ -72,4 +72,9 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
             }
         })
     }
+
+    fun getCategoryHeadlines(category: String) {
+        newsFeedAdapter.clearList()
+        viewModel.fetchHeadlinesWithCategory(category)
+    }
 }

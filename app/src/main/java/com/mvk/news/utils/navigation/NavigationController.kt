@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.mvk.news.R
 import com.mvk.news.ui.newsfeed.NewsFeedFragment
+import com.mvk.news.utils.common.Constants
 import javax.inject.Inject
 
 class NavigationController @Inject constructor(var context: Context, var fragmentManager: FragmentManager) {
 
-    fun showNewsFeedFragment(): Fragment {
+    fun showNewsFeedFragment(category: String = Constants.DEFAULT_CATEGORY): Fragment {
         val fragmentTransaction = fragmentManager.beginTransaction()
         var fragment = fragmentManager.findFragmentByTag(NewsFeedFragment.TAG) as NewsFeedFragment?
 
@@ -18,6 +19,7 @@ class NavigationController @Inject constructor(var context: Context, var fragmen
             fragmentTransaction.add(R.id.containerFragment, fragment, NewsFeedFragment.TAG)
         } else {
             fragmentTransaction.show(fragment)
+            fragment.getCategoryHeadlines(category)
         }
         fragmentTransaction.commit()
         return fragment
