@@ -11,6 +11,8 @@ import com.mvk.news.di.component.FragmentComponent
 import com.mvk.news.ui.base.BaseFragment
 import com.mvk.news.ui.home.adapter.NewsCategoryAdapter
 import com.mvk.news.utils.navigation.NavigationController
+import com.mvk.news.utils.rx.RxSearch
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -45,6 +47,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun setupView(view: View) {
         viewModel.loadNewsFeed()
+        setupSearchView()
         setupCategoryAdapter()
     }
 
@@ -57,11 +60,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             }
         })
 
+        viewModel.searchQuery.observe(this, {
+            it.getIfNotHandled()?.run {
+                newsCategoryAdapter.clearSelection()
+                navigationController.showNewsFeedFragment(query = this)
+            }
+        })
+
         viewModel.categoryList.observe(this, {
             it.data?.run {
                 newsCategoryAdapter.appendData(this)
             }
         })
+    }
+
+    private fun setupSearchView() {
+        viewModel.handleSearch(dataBinding.categorySearchView)
     }
 
     private fun setupCategoryAdapter() {

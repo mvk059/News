@@ -12,7 +12,7 @@ class NewsCategoryAdapter(
         private val posts: ArrayList<NewsCategory>
 ) : BaseAdapter<NewsCategory, NewsCategoryItemViewHolder>(parentLifecycle, posts) {
 
-    var rowIndex = 0
+    private var rowIndex = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = NewsCategoryItemViewHolder(parent)
 
@@ -32,7 +32,10 @@ class NewsCategoryAdapter(
             holder.itemView.tvCategoryName.setTextColor(context.getColor(R.color.black))
             holder.itemView.tvCategoryName.setBackgroundColor(context.getColor(R.color.white))
         }
+    }
 
-
+    fun clearSelection() {
+        rowIndex = -1
+        notifyDataSetChanged()
     }
 }

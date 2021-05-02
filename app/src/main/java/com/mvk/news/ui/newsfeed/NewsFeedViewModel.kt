@@ -24,6 +24,8 @@ class NewsFeedViewModel(
     val posts = MutableLiveData<Resource<List<NewsArticles>>>()
     var pageId: Int = 1
     var category: String = Constants.DEFAULT_CATEGORY
+    var api = Constants.API_HEADLINES
+    var searchQuery = ""
 
     init {
         compositeDisposable.add(
@@ -33,10 +35,17 @@ class NewsFeedViewModel(
                     loading.postValue(true)
                 }
                 .concatMapSingle { pageId ->
-                    return@concatMapSingle newsRepository
-                        .doNewsHeadlinesCall(country = "us", category = category, page = pageId)
-                        .subscribeOn(schedulerProvider.io())
-                        .doOnError { handleNetworkError(it) }
+                    if (api == Constants.API_HEADLINES) {
+                        return@concatMapSingle newsRepository
+                            .doNewsHeadlinesCall(country = "us", category = category, page = pageId)
+                            .subscribeOn(schedulerProvider.io())
+                            .doOnError { handleNetworkError(it) }
+                    } else {
+                        return@concatMapSingle newsRepository
+                            .doSearchCall(searchQuery = searchQuery, page = pageId)
+                            .subscribeOn(schedulerProvider.io())
+                            .doOnError { handleNetworkError(it) }
+                    }
                 }
                 .subscribe(
                     {
@@ -64,10 +73,21 @@ class NewsFeedViewModel(
         if (loading.value != null && loading.value == false) loadMorePosts()
     }
 
-    fun fetchHeadlinesWithCategory(category: String) {
-        this.category = category
-        pageId = 1
-        paginator.onNext(pageId)
+    fun fetchHeadlinesWithCategory(category: String?) {
+        category?.let {
+            this.category = category
+            pageId = 1
+            api = Constants.API_HEADLINES
+            paginator.onNext(pageId)
+        }
     }
 
+    fun fetchSearchQuery(query: String?) {
+        query?.let {
+            searchQuery = query
+            pageId = 1
+            api = Constants.API_SEARCH
+            paginator.onNext(pageId)
+        }
+    }
 }

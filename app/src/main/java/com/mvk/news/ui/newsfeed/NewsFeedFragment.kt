@@ -11,6 +11,7 @@ import com.mvk.news.databinding.FragmentNewsFeedBinding
 import com.mvk.news.di.component.FragmentComponent
 import com.mvk.news.ui.base.BaseFragment
 import com.mvk.news.ui.newsfeed.adapter.NewsFeedAdapter
+import com.mvk.news.utils.common.Constants
 import javax.inject.Inject
 
 class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel>() {
@@ -73,8 +74,13 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
         })
     }
 
-    fun getCategoryHeadlines(category: String) {
+    fun getCategoryHeadlines(category: String?) {
         newsFeedAdapter.clearList()
         viewModel.fetchHeadlinesWithCategory(category)
+    }
+
+    fun getSearchQuery(query: String?) {
+        newsFeedAdapter.clearList()
+        viewModel.fetchSearchQuery(query)
     }
 }

@@ -25,7 +25,10 @@ class NavigationController @Inject constructor(var context: Context, var fragmen
         return fragment
     }
 
-    fun showNewsFeedFragment(category: String = Constants.DEFAULT_CATEGORY): Fragment {
+    fun showNewsFeedFragment(
+        category: String? = "",
+        query: String? = ""
+    ): Fragment {
         val fragmentTransaction = fragmentManager.beginTransaction()
         var fragment = fragmentManager.findFragmentByTag(NewsFeedFragment.TAG) as NewsFeedFragment?
 
@@ -34,7 +37,10 @@ class NavigationController @Inject constructor(var context: Context, var fragmen
             fragmentTransaction.add(R.id.newsFeedContainerFragment, fragment, NewsFeedFragment.TAG)
         } else {
             fragmentTransaction.show(fragment)
-            fragment.getCategoryHeadlines(category)
+            if (!category.isNullOrEmpty())
+                fragment.getCategoryHeadlines(category)
+            if (!query.isNullOrEmpty())
+                fragment.getSearchQuery(query)
         }
         fragmentTransaction.commit()
         return fragment
