@@ -10,12 +10,12 @@ import javax.inject.Inject
 
 class NavigationController @Inject constructor(var context: Context, var fragmentManager: FragmentManager) {
 
-    fun showHomeFragment(tag: String): Fragment {
+    fun showHomeFragment(tag: String, country: String): Fragment {
         val fragmentTransaction = fragmentManager.beginTransaction()
 
         var fragment = fragmentManager.findFragmentByTag(tag) as HomeFragment?
         if (fragment == null) {
-            fragment = HomeFragment.newInstance(tag)
+            fragment = HomeFragment.newInstance(tag, country)
             fragmentTransaction.replace(R.id.homeContainerFragment, fragment, tag)
         } else {
             fragmentTransaction.show(fragment)
@@ -27,14 +27,15 @@ class NavigationController @Inject constructor(var context: Context, var fragmen
     fun showNewsFeedFragment(
         tag: String,
         category: String? = "",
-        query: String? = ""
+        query: String? = "",
+        country: String? = ""
     ): Fragment {
         val fragmentTransaction = fragmentManager.beginTransaction()
 
         var fragment = fragmentManager.findFragmentByTag(tag) as NewsFeedFragment?
 
         if (fragment == null) {
-            fragment = NewsFeedFragment.newInstance()
+            fragment = NewsFeedFragment.newInstance(country)
             fragmentTransaction.replace(R.id.newsFeedContainerFragment, fragment, tag)
         } else {
             fragmentTransaction.show(fragment)

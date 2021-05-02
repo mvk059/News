@@ -54,7 +54,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         viewModel.homeIndiaNavigation.observe(this, {
             it.getIfNotHandled()?.run {
                 this@MainActivity.invalidateOptionsMenu()
-                navigationController.showHomeFragment(Constants.TAG_HOME_INDIA)
+                navigationController.showHomeFragment(Constants.TAG_HOME_INDIA, Constants.COUNTRY_INDIA)
             }
         })
 
@@ -62,7 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             it.getIfNotHandled()?.run {
                 searchView.isIconified = true
                 this@MainActivity.invalidateOptionsMenu()
-                navigationController.showHomeFragment(Constants.TAG_HOME_US)
+                navigationController.showHomeFragment(Constants.TAG_HOME_US, Constants.COUNTRY_US)
             }
         })
 

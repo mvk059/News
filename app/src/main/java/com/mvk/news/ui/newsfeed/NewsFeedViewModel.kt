@@ -26,6 +26,7 @@ class NewsFeedViewModel(
     var category: String = Constants.DEFAULT_CATEGORY
     var api = Constants.API_HEADLINES
     var searchQuery = ""
+    lateinit var country: String
 
     init {
         compositeDisposable.add(
@@ -37,7 +38,7 @@ class NewsFeedViewModel(
                 .concatMapSingle { pageId ->
                     if (api == Constants.API_HEADLINES) {
                         return@concatMapSingle newsRepository
-                            .doNewsHeadlinesCall(country = "us", category = category, page = pageId)
+                            .doNewsHeadlinesCall(country = country, category = category, page = pageId)
                             .subscribeOn(schedulerProvider.io())
                             .doOnError {
                                 loading.postValue(false)
@@ -68,11 +69,9 @@ class NewsFeedViewModel(
         )
     }
 
-    override fun onCreate() {
-        loadMorePosts()
-    }
+    override fun onCreate() {}
 
-    private fun loadMorePosts() {
+    fun loadMorePosts() {
         if (checkInternetConnectionWithMessage()) paginator.onNext(pageId)
     }
 

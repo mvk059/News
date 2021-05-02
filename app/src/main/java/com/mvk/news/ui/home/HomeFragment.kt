@@ -20,10 +20,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         const val TAG = "HomeFragment"
         var homeTagParam: String? = null
 
-        fun newInstance(tag: String): HomeFragment =
+        fun newInstance(tag: String, country: String): HomeFragment =
              HomeFragment().apply {
                 arguments = Bundle().apply {
                     putString(Constants.HOME_PARAM_ARG, tag)
+                    putString(Constants.HOME_COUNTRY_PARAM_ARG, country)
                 }
             }
     }
@@ -38,6 +39,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     @Inject
     lateinit var newsCategoryAdapter: NewsCategoryAdapter
 
+    lateinit var country: String
+
     override fun provideDataBindingVariable(): Int = BR.homeVM
 
     override fun provideLayoutId(): Int = R.layout.fragment_home
@@ -48,6 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun setupView(view: View) {
         arguments?.let {
             homeTagParam = it.getString(Constants.HOME_PARAM_ARG)
+            country = it.getString(Constants.HOME_COUNTRY_PARAM_ARG).toString()
         }
         viewModel.loadNewsFeed()
         setupSearchView()
@@ -59,7 +63,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
         viewModel.homeNavigation.observe(this, {
             it.getIfNotHandled()?.run {
-                navigationController.showNewsFeedFragment(tag = TAG + homeTagParam)
+                navigationController.showNewsFeedFragment(tag = TAG + homeTagParam, country = country)
             }
         })
 

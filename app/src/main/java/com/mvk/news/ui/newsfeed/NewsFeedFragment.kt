@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mvk.news.BR
@@ -24,12 +23,13 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
 
         const val TAG = "NewsFeedFragment"
 
-        fun newInstance(): NewsFeedFragment {
-            val args = Bundle()
-            val fragment = NewsFeedFragment()
-            fragment.arguments = args
-            return fragment
-        }
+        fun newInstance(country: String?): NewsFeedFragment =
+            NewsFeedFragment().apply {
+                arguments = Bundle().apply {
+                    putString(Constants.NEWS_COUNTRY_PARAM_ARG, country)
+                }
+            }
+
     }
 
     @Inject
@@ -39,6 +39,8 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
     lateinit var newsFeedAdapter: NewsFeedAdapter
 
     lateinit var searchView: SearchView
+
+    lateinit var country: String
 
     override fun provideDataBindingVariable(): Int = BR.newsVM
 
@@ -53,6 +55,13 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
     }
 
     override fun setupView(view: View) {
+        arguments?.let {
+            country = it.getString(Constants.NEWS_COUNTRY_PARAM_ARG).toString()
+        }
+        viewModel.country = country
+
+        viewModel.loadMorePosts()
+
         dataBinding.newsFeedRV.apply {
             layoutManager = linearLayoutManager
             adapter = newsFeedAdapter
