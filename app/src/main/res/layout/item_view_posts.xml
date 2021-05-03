@@ -5,38 +5,38 @@
     android:id="@+id/newsFeedItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="8dp"
+    android:layout_margin="@dimen/dp10"
+    app:cardElevation="@dimen/dp8"
+    app:cardCornerRadius="@dimen/dp8"
     app:cardUseCompatPadding="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="8dp"
-        android:paddingBottom="16dp">
+        android:paddingTop="@dimen/dp8"
+        android:paddingBottom="@dimen/sp16">
 
         <TextView
             android:id="@+id/tvSource"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/dp8"
             android:ellipsize="end"
             android:lines="1"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="TMZ" />
 
         <TextView
             android:id="@+id/tvTime"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:textSize="14sp"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp4"
+            android:textSize="@dimen/sp14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSource"
@@ -44,10 +44,10 @@
 
         <ImageView
             android:id="@+id/ivImage"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="4dp"
-            android:padding="4dp"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="@dimen/dp200"
+            android:layout_marginTop="@dimen/dp4"
+            android:padding="@dimen/dp4"
             android:contentDescription="@string/news_feed_image_content_desc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,11 +55,11 @@
 
         <TextView
             android:id="@+id/tvAuthor"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="6dp"
-            android:textSize="14sp"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp6"
+            android:textSize="@dimen/sp14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivImage"
@@ -67,15 +67,15 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginEnd="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp8"
             android:ellipsize="end"
             android:maxLines="3"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAuthor"
