@@ -1,5 +1,6 @@
 package com.mvk.news.ui.newsfeed
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import com.mvk.news.data.model.NewsArticles
 import com.mvk.news.data.repository.NewsRepository
@@ -23,9 +24,10 @@ class NewsFeedViewModel(
     val loading = MutableLiveData<Boolean>()
     val posts = MutableLiveData<Resource<List<NewsArticles>>>()
     var category: String = Constants.DEFAULT_CATEGORY
+    @VisibleForTesting
+    var searchQuery = ""
     private var pageId: Int = 1
     private var apiToCall = Constants.API_HEADLINES
-    private var searchQuery = ""
     lateinit var country: String
 
     /**

@@ -106,8 +106,8 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation 'com.android.support:support-annotations:28.0.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-
-    // Mockk
-    testImplementation "io.mockk:mockk:$mockk_version"
-    androidTestImplementation "io.mockk:mockk-android:$mockk_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
+    kaptTest "com.google.dagger:dagger-compiler:$dagger_version"
+    testImplementation "android.arch.core:core-testing:$core_testing_version"
 }

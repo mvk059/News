@@ -84,6 +84,21 @@ class NewsItemViewHolder(parent: ViewGroup) :
                     )
                     .centerCrop()
                 glideRequest.into(itemView.ivImage)
+            } ?: run {
+                val glideRequest = Glide
+                    .with(itemView.ivImage.context)
+                    .load(ContextCompat.getDrawable(
+                        itemView.context,
+                        R.drawable.ic_error
+                    ))
+                    .placeholder(
+                        ContextCompat.getDrawable(
+                            itemView.context,
+                            R.drawable.ic_placeholder
+                        )
+                    )
+                    .fitCenter()
+                glideRequest.into(itemView.ivImage)
             }
         })
 
