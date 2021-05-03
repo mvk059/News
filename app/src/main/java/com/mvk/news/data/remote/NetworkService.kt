@@ -5,9 +5,15 @@ import io.reactivex.Single
 import retrofit2.http.*
 import javax.inject.Singleton
 
+/**
+ * List of APIs
+ */
 @Singleton
 interface NetworkService {
 
+    /**
+     * Get latest headlines
+     */
     @GET(Endpoints.TOP_HEADLINES)
     fun doNewsHeadlinesCall(
         @Query("country") country: String,

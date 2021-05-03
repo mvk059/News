@@ -3,6 +3,9 @@ package com.mvk.news.data.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Model for News Articles
+ */
 data class NewsArticles(
     @Expose
     @SerializedName("source")

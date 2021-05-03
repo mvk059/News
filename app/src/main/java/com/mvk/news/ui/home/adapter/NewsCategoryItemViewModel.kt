@@ -17,7 +17,5 @@ class NewsCategoryItemViewModel @Inject constructor(
 
     val categoryName: LiveData<String> = Transformations.map(data) { it?.category }
 
-    override fun onCreate() {
-
-    }
+    override fun onCreate() { /* Empty */ }
 }

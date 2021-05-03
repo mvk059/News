@@ -18,6 +18,11 @@ class NewsCategoryRepository @Inject constructor(
         private val context: Context,
 ) {
 
+    /**
+     * Get the list of news categories
+     *
+     * @return List of news categories
+     */
     fun getCategoryList(): List<NewsCategory> {
         var json: String? = ""
         try {
@@ -28,7 +33,6 @@ class NewsCategoryRepository @Inject constructor(
         }
         val gsonBuilder = GsonBuilder()
         val gson = gsonBuilder.create()
-        val g = gson.fromJson(json, Array<NewsCategory>::class.java).toList()
         return gson.fromJson(json, Array<NewsCategory>::class.java).toList()
     }
 }

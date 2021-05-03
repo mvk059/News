@@ -21,9 +21,6 @@ class ActivityModule(private val activity: BaseActivity<*, *>) {
     @Provides
     fun provideLinearLayoutManager(): LinearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
-//    @Provides
-//    fun provideNewsFeedAdapter() = NewsCategoryAdapter(activity.lifecycle, ArrayList())
-
     @Provides
     fun provideNavigationController(): NavigationController =
             NavigationController(activity, activity.supportFragmentManager)
@@ -32,12 +29,10 @@ class ActivityModule(private val activity: BaseActivity<*, *>) {
     fun provideMainViewModel(
             schedulerProvider: SchedulerProvider,
             compositeDisposable: CompositeDisposable,
-            networkHelper: NetworkHelper,
-            newsRepository: NewsRepository,
-            newsCategoryRepository: NewsCategoryRepository,
+            networkHelper: NetworkHelper
     ): MainViewModel {
         val viewModelFactory = ViewModelProviderFactory(MainViewModel::class) {
-            MainViewModel(schedulerProvider, compositeDisposable, networkHelper, newsRepository, newsCategoryRepository)
+            MainViewModel(schedulerProvider, compositeDisposable, networkHelper)
         }
         return ViewModelProvider(activity, viewModelFactory).get(MainViewModel::class.java)
     }

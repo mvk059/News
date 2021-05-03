@@ -13,24 +13,23 @@ import com.mvk.news.ui.base.BaseItemViewHolder
 import com.mvk.news.utils.common.GlideHelper
 import com.mvk.news.utils.common.Resource
 import kotlinx.android.synthetic.main.item_view_posts.view.*
-import java.text.SimpleDateFormat
-import java.util.*
-
 
 class NewsItemViewHolder(parent: ViewGroup) :
-        BaseItemViewHolder<NewsArticles, NewsItemViewModel>(R.layout.item_view_posts, parent) {
+    BaseItemViewHolder<NewsArticles, NewsItemViewModel>(R.layout.item_view_posts, parent) {
 
     override fun injectDependencies(viewHolderComponent: ViewHolderComponent) {
         viewHolderComponent.inject(this)
     }
 
     override fun setupView(view: View) {
+        // Open browser on click a news item
         itemView.newsFeedItem.setOnClickListener {
             val url = viewModel.onNewsFeedItemClick()
             url?.let {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
                 itemView.newsFeedItem.context.startActivity(browserIntent)
-            } ?: viewModel.messageStringId.postValue(Resource.error(R.string.news_feed_url_not_available))
+            }
+                ?: viewModel.messageStringId.postValue(Resource.error(R.string.news_feed_url_not_available))
         }
     }
 
@@ -44,14 +43,9 @@ class NewsItemViewHolder(parent: ViewGroup) :
         viewModel.publishedAt.observe(this, {
 
             it?.let {
-                val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX", Locale.US)
-                val outputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.US)
-
-                val date = inputFormat.parse(it)
-                val outputText = date?.let { value -> outputFormat.format(value) }
-
-                itemView.tvTime.text =  String.format(
-                    itemView.tvAuthor.context.getString(R.string.news_feed_published_label, outputText)
+                val time = viewModel.getFormattedTime(it)
+                itemView.tvTime.text = String.format(
+                    itemView.tvAuthor.context.getString(R.string.news_feed_published_label, time)
                 )
             } ?: run {
                 String.format(
@@ -59,7 +53,6 @@ class NewsItemViewHolder(parent: ViewGroup) :
                     itemView.tvAuthor.context.getString(R.string.news_feed_label_error)
                 )
             }
-
         })
 
         viewModel.author.observe(this, {

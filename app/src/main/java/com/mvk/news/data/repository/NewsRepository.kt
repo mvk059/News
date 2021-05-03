@@ -12,6 +12,9 @@ class NewsRepository @Inject constructor(
     private val networkService: NetworkService,
 ) {
 
+    /**
+     * Call the headlines API
+     */
     fun doNewsHeadlinesCall(
         country: String,
         category: String,
@@ -26,6 +29,9 @@ class NewsRepository @Inject constructor(
                 )
             }
 
+    /**
+     * Call the search API
+     */
     fun doSearchCall(
         searchQuery: String,
         pageSize: Int = Constants.PAGE_SIZE,

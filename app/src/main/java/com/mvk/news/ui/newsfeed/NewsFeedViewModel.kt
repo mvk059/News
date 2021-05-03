@@ -22,12 +22,15 @@ class NewsFeedViewModel(
 
     val loading = MutableLiveData<Boolean>()
     val posts = MutableLiveData<Resource<List<NewsArticles>>>()
-    var pageId: Int = 1
     var category: String = Constants.DEFAULT_CATEGORY
-    var api = Constants.API_HEADLINES
-    var searchQuery = ""
+    private var pageId: Int = 1
+    private var apiToCall = Constants.API_HEADLINES
+    private var searchQuery = ""
     lateinit var country: String
 
+    /**
+     * Setup the api
+     */
     init {
         compositeDisposable.add(
             paginator
@@ -36,7 +39,8 @@ class NewsFeedViewModel(
                     loading.postValue(true)
                 }
                 .concatMapSingle { pageId ->
-                    if (api == Constants.API_HEADLINES) {
+                    // Call the headlines api
+                    if (apiToCall == Constants.API_HEADLINES) {
                         return@concatMapSingle newsRepository
                             .doNewsHeadlinesCall(country = country, category = category, page = pageId)
                             .subscribeOn(schedulerProvider.io())
@@ -45,6 +49,7 @@ class NewsFeedViewModel(
                                 handleNetworkError(it)
                             }
                     } else {
+                        // Call the everything api
                         return@concatMapSingle newsRepository
                             .doSearchCall(searchQuery = searchQuery, page = pageId)
                             .subscribeOn(schedulerProvider.io())
@@ -56,12 +61,14 @@ class NewsFeedViewModel(
                 }
                 .subscribe(
                     {
+                        // Handle success
                         it.articles?.let { articles -> allPostList.addAll(articles) }
                         pageId = pageId.plus(1)
                         loading.postValue(false)
                         posts.postValue(Resource.success(it.articles))
                     },
                     {
+                        // Handle failure
                         loading.postValue(false)
                         handleNetworkError(it)
                     }
@@ -69,30 +76,46 @@ class NewsFeedViewModel(
         )
     }
 
-    override fun onCreate() {}
+    override fun onCreate() { /* Empty */ }
 
+    /**
+     * Load posts
+     */
     fun loadMorePosts() {
         if (checkInternetConnectionWithMessage()) paginator.onNext(pageId)
     }
 
+    /**
+     * Load more posts on pagination
+     */
     fun onLoadMore() {
         if (loading.value != null && loading.value == false) loadMorePosts()
     }
 
+    /**
+     * Fetch the headlines for the updated category
+     *
+     * @param category Category
+     */
     fun fetchHeadlinesWithCategory(category: String?) {
         category?.let {
             this.category = category
             pageId = 1
-            api = Constants.API_HEADLINES
+            apiToCall = Constants.API_HEADLINES
             paginator.onNext(pageId)
         }
     }
 
+    /**
+     * Fetch the news for the search query
+     *
+     * @param query Query
+     */
     fun fetchSearchQuery(query: String?) {
         query?.let {
             searchQuery = query
             pageId = 1
-            api = Constants.API_SEARCH
+            apiToCall = Constants.API_SEARCH
             paginator.onNext(pageId)
         }
     }

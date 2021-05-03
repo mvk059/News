@@ -8,8 +8,17 @@ import com.mvk.news.ui.home.HomeFragment
 import com.mvk.news.ui.newsfeed.NewsFeedFragment
 import javax.inject.Inject
 
+/**
+ * Handles the navigation in the app
+ */
 class NavigationController @Inject constructor(var context: Context, var fragmentManager: FragmentManager) {
 
+    /**
+     * Load the [HomeFragment]
+     *
+     * @param tag Custom tag for the fragment
+     * @param country Selected country in the bottom navigation bar
+     */
     fun showHomeFragment(tag: String, country: String): Fragment {
         val fragmentTransaction = fragmentManager.beginTransaction()
 
@@ -24,6 +33,14 @@ class NavigationController @Inject constructor(var context: Context, var fragmen
         return fragment
     }
 
+    /**
+     * Load the [NewsFeedFragment]
+     *
+     * @param tag Custom tag for the fragment
+     * @param category Selected category
+     * @param query Search query
+     * @param country Selected country in the bottom navigation bar
+     */
     fun showNewsFeedFragment(
         tag: String,
         category: String? = "",
@@ -40,9 +57,9 @@ class NavigationController @Inject constructor(var context: Context, var fragmen
         } else {
             fragmentTransaction.show(fragment)
             if (!category.isNullOrEmpty())
-                fragment.getCategoryHeadlines(category)
+                fragment.updateCategoryHeadlines(category)
             if (!query.isNullOrEmpty())
-                fragment.getSearchQuery(query)
+                fragment.updateSearchQuery(query)
         }
         fragmentTransaction.commit()
         return fragment

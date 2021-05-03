@@ -18,7 +18,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     @Inject
     lateinit var navigationController: NavigationController
 
-    lateinit var searchView: SearchView
+    private lateinit var searchView: SearchView
 
     override fun provideDataBindingVariable(): Int = BR.mainVM
 
@@ -28,8 +28,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         activityComponent.inject(this)
 
     override fun setupView(savedInstanceState: Bundle?) {
+        // Bottom navigation default selected item
         dataBinding.bottomNavigation.selectedItemId = R.id.itemIndia
 
+        // Bottom navigation click listener
         dataBinding.bottomNavigation.run {
             itemIconTintList = null
             setOnNavigationItemSelectedListener {
@@ -51,6 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun setupObservers() {
         super.setupObservers()
 
+        // Load the HomeFragment passing India as the selected country
         viewModel.homeIndiaNavigation.observe(this, {
             it.getIfNotHandled()?.run {
                 this@MainActivity.invalidateOptionsMenu()
@@ -58,6 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             }
         })
 
+        // Load the HomeFragment passing US as the selected country
         viewModel.homeUSNavigation.observe(this, {
             it.getIfNotHandled()?.run {
                 searchView.isIconified = true
@@ -66,6 +70,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             }
         })
 
+        // Load the NewsFeedFragment passing the search query
         viewModel.searchQuery.observe(this, {
             it.getIfNotHandled()?.run {
                 navigationController.showNewsFeedFragment(
@@ -76,6 +81,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         })
     }
 
+    /**
+     * Create the options menu
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.menu, menu)

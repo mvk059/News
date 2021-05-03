@@ -54,19 +54,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             country = it.getString(Constants.HOME_COUNTRY_PARAM_ARG).toString()
         }
         viewModel.loadNewsFeed()
-        setupSearchView()
         setupCategoryAdapter()
     }
 
     override fun setupObservers() {
         super.setupObservers()
 
+        // Load the NewsFeedFragment
         viewModel.homeNavigation.observe(this, {
             it.getIfNotHandled()?.run {
                 navigationController.showNewsFeedFragment(tag = TAG + homeTagParam, country = country)
             }
         })
 
+        // Load the NewsFeedFragment with the search query
         viewModel.searchQuery.observe(this, {
             it.getIfNotHandled()?.run {
                 newsCategoryAdapter.clearSelection()
@@ -74,18 +75,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             }
         })
 
+        // Update the category list
         viewModel.categoryList.observe(this, {
             it.data?.run {
-//                dataBinding.categorySearchView.setQuery("", false)
                 newsCategoryAdapter.appendData(this)
             }
         })
     }
 
-    private fun setupSearchView() {
-//        viewModel.handleSearch(dataBinding.categorySearchView)
-    }
-
+    /**
+     * Setup the category adapter
+     */
     private fun setupCategoryAdapter() {
         dataBinding.categoryRV.apply {
             layoutManager = linearLayoutManager
@@ -94,6 +94,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         viewModel.getNewsCategoryList()
     }
 
+    /**
+     * Clear the news category selection
+     */
     fun clearCategorySelection() {
         newsCategoryAdapter.clearSelection()
     }

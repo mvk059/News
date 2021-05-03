@@ -64,11 +64,10 @@ class FragmentModule(private val fragment: BaseFragment<*, *>) {
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
         networkHelper: NetworkHelper,
-        newsRepository: NewsRepository,
         newsCategoryRepository: NewsCategoryRepository
     ): HomeViewModel {
         val viewModelFactory = ViewModelProviderFactory(HomeViewModel::class) {
-            HomeViewModel(schedulerProvider, compositeDisposable, networkHelper, newsRepository, newsCategoryRepository)
+            HomeViewModel(schedulerProvider, compositeDisposable, networkHelper, newsCategoryRepository)
         }
         return ViewModelProvider(fragment, viewModelFactory).get(HomeViewModel::class.java)
     }

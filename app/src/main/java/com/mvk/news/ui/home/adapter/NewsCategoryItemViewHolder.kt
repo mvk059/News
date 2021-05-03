@@ -21,9 +21,7 @@ class NewsCategoryItemViewHolder(parent: ViewGroup) :
         viewHolderComponent.inject(this)
     }
 
-    override fun setupView(view: View) {
-
-    }
+    override fun setupView(view: View) { /* Empty */ }
 
     override fun setupObservers() {
         super.setupObservers()
@@ -33,6 +31,9 @@ class NewsCategoryItemViewHolder(parent: ViewGroup) :
         })
     }
 
+    /**
+     * Refesh the news feed with the selected category
+     */
     fun refreshNewsFeed() {
         navigationController.showNewsFeedFragment(
             tag = HomeFragment.TAG + HomeFragment.homeTagParam,

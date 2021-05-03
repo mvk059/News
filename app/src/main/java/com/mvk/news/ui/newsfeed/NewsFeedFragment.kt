@@ -21,8 +21,6 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
 
     companion object {
 
-        const val TAG = "NewsFeedFragment"
-
         fun newInstance(country: String?): NewsFeedFragment =
             NewsFeedFragment().apply {
                 arguments = Bundle().apply {
@@ -58,10 +56,11 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
         arguments?.let {
             country = it.getString(Constants.NEWS_COUNTRY_PARAM_ARG).toString()
         }
+        // Set country
         viewModel.country = country
-
+        // Load posts
         viewModel.loadMorePosts()
-
+        // Setup recycler view
         dataBinding.newsFeedRV.apply {
             layoutManager = linearLayoutManager
             adapter = newsFeedAdapter
@@ -83,10 +82,11 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
     override fun setupObservers() {
         super.setupObservers()
 
+        // Observe Progress bar changes
         viewModel.loading.observe(this, {
             dataBinding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
         })
-
+        // Observe for new posts
         viewModel.posts.observe(this, {
             it.data?.run {
                 newsFeedAdapter.appendData(this)
@@ -94,7 +94,13 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
         })
     }
 
-    fun getCategoryHeadlines(category: String?) {
+    /**
+     * Update the news feed with the new category
+     * Clear the search view on category selection
+     *
+     * @param category Newly selected category
+     */
+    fun updateCategoryHeadlines(category: String?) {
         newsFeedAdapter.clearList()
         searchView.setQuery("", false)
         searchView.onActionViewCollapsed()
@@ -102,12 +108,20 @@ class NewsFeedFragment : BaseFragment<FragmentNewsFeedBinding, NewsFeedViewModel
         viewModel.fetchHeadlinesWithCategory(category)
     }
 
-    fun getSearchQuery(query: String?) {
-        clear()
+    /**
+     * Clear the category and update the news feed with the searched query
+     *
+     * @param query Search query
+     */
+    fun updateSearchQuery(query: String?) {
+        clearCategorySelection()
         viewModel.fetchSearchQuery(query)
     }
 
-    private fun clear() {
+    /**
+     * Clear the category selection on search
+     */
+    private fun clearCategorySelection() {
         newsFeedAdapter.clearList()
         var tag = this.tag
         tag = tag?.replace(HomeFragment.TAG, "")

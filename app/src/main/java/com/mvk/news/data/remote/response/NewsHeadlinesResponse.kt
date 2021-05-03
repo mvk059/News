@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 import com.mvk.news.data.model.NewsArticles
 import com.mvk.news.data.model.NewsSource
 
+/**
+ * Model for News API response
+ */
 data class NewsHeadlinesResponse(
     @Expose
     @SerializedName("status")
