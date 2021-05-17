@@ -32,8 +32,7 @@ Works on Marshmallow and above
 
 ### Important points
 1. Scrolling too fast will result in the API throwing Too Many Request errors. So please scroll slowly.
-2. The search query updates the same news feed as the category selection. In the document it was mentioned Google Search results but that is a different API altogether which was not mentioned anywhere in the document. Hence I used the 'Everything' API from the same news API source mentioned in the document.
-3. There might be few minor bugs
+2. There might be few minor bugs
 
 ### Todo
 
